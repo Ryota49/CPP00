@@ -6,65 +6,32 @@ PhoneBook::PhoneBook()
     oldest_index = 0;
 }
 
+std::string PhoneBook::ask_field(std::string ask_message, std::string error_message)
+{
+    std::string input;
+
+    std::cout << ask_message;
+    if (!std::getline(std::cin, input))
+        std::exit(0);
+    while (input.length() <= 0)
+    {
+        std::cout << error_message;
+        if (!std::getline(std::cin, input))
+            std::exit(0);
+    }
+    return input;
+}
+
 void PhoneBook::add_contact() 
 {
     Contact new_contact;
     std::string input;
-
-    std::cout << "Please enter your first name : ";
-    if (!std::getline(std::cin, input))
-        std::exit(0);
-    while (input.length() <= 0)
-    {
-        std::cout << "Please enter a valid first name (not an empty field) : ";
-        if (!std::getline(std::cin, input))
-            std::exit(0);
-    }
-    new_contact.set_first_name(input);
-
-    std::cout << "Please enter your last name : ";
-    if (!std::getline(std::cin, input))
-        std::exit(0);
-    while (input.length() <= 0)
-    {
-        std::cout << "Please enter a valid last name (not an empty field) : ";
-        if (!std::getline(std::cin, input))
-            std::exit(0);
-    }
-    new_contact.set_last_name(input);
-
-    std::cout << "Please enter your nickname : ";
-    if (!std::getline(std::cin, input))
-        std::exit(0);
-    while (input.length() <= 0)
-    {
-        std::cout << "Please enter a valid nickname (not an empty field) : ";
-        if (!std::getline(std::cin, input))
-            std::exit(0);
-    }
-    new_contact.set_nickname(input);
-
-    std::cout << "Please enter your phone number : ";
-    if (!std::getline(std::cin, input))
-        std::exit(0);
-    while (input.length() <= 0)
-    {
-        std::cout << "Please enter a valid phone number (not an empty field) : ";
-        if (!std::getline(std::cin, input))
-            std::exit(0);
-    }
-    new_contact.set_phone_number(input);
-
-    std::cout << "Please enter your darkest secret : ";
-    if (!std::getline(std::cin, input))
-        std::exit(0);
-    while (input.length() <= 0)
-    {
-        std::cout << "Please enter a valid darkest secret (not an empty field) : ";
-        if (!std::getline(std::cin, input))
-            std::exit(0);
-    }
-    new_contact.set_darkest_secret(input);
+    
+    new_contact.set_first_name(ask_field("Please enter your first name : ", "Please enter a valid first name (not an empty field) : "));
+    new_contact.set_last_name(ask_field("Please enter your last name : ", "Please enter a valid first name (not an empty field) : "));
+    new_contact.set_nickname(ask_field("Please enter your nickname : ", "Please enter a valid nickname (not an empty field) : "));
+    new_contact.set_phone_number(ask_field("Please enter your phone number : ", "Please enter a valid phone number (not an empty field) : "));
+    new_contact.set_darkest_secret(ask_field("Please enter your darkest secret : ", "Please enter a valid darkest secret (not an empty field) : "));
     
     this->Contacts[oldest_index] = new_contact;
     this->oldest_index = (this->oldest_index + 1) % 8;
@@ -111,5 +78,5 @@ void PhoneBook::search_contact() {
         std::cout << "Darkest secret : " << this->Contacts[index].get_darkest_secret() << std::endl;
     }
     else
-        std::cout << "Index is invalid (choose between 0 to 7 max)" << std::endl;
+        std::cout << "No Contact at this index" << std::endl;
 }

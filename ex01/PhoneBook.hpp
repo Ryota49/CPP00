@@ -15,6 +15,7 @@ class PhoneBook {
         Contact Contacts[8];
         int total_contacts;
         int oldest_index;
+        std::string ask_field(std::string ask_message, std::string error_message);
 };
 
 # endif
