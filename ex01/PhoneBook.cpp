@@ -25,7 +25,6 @@ std::string PhoneBook::ask_field(std::string ask_message, std::string error_mess
 void PhoneBook::add_contact() 
 {
     Contact new_contact;
-    std::string input;
     
     new_contact.set_first_name(ask_field("Please enter your first name : ", "Please enter a valid first name (not an empty field) : "));
     new_contact.set_last_name(ask_field("Please enter your last name : ", "Please enter a valid last name (not an empty field) : "));
